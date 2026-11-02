@@ -188,6 +188,10 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     TOKEN = os.getenv("BOT_TOKEN")
+    if not TOKEN:
+        print("❌ ОШИБКА: Переменная BOT_TOKEN не найдена!")
+        return
+
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
