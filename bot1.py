@@ -34,7 +34,7 @@ def create_file(filename, content):
 
 def ask_deepseek(prompt, system_prompt=None, model_name="anthropic/claude-haiku-5.5"):
     # ВСТАВЬ СЮДА СВОЙ КЛЮЧ ОТ OFOXAI
-    api_key = "sk-of-CetcdLRVvTnJxNxHvF1ITmrYZbQLEMMBJzJtmtXoTjCzzsJUCbXwmPUTJNkjA1BFY" 
+    api_key = "sk-of-OpGYXSeyDpXOghyzxLqXNCnraWTmcyMZjKZxYYmUMcaESYcAHLItCdCvuVtJPEgl" 
     
     url = "https://api.ofox.ai/anthropic/v1/messages"
     
