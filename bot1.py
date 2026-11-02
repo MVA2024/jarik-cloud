@@ -17,11 +17,11 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 VOICE_ENABLED = True
 LAST_SITE_CODE = ""  # Память для хранения последнего сгенерированного сайта
 
-# --- Whisper ---
-model_path = r"D:\Jarvis_Release\models\models--Systran--faster-whisper-small\snapshots"
-snapshot_dir = glob.glob(os.path.join(model_path, "*"))[0]
-model = WhisperModel(snapshot_dir, device="cpu", compute_type="int8")
-print("Модель загружена.")
+# --- Whisper (ВРЕМЕННО ОТКЛЮЧЕН ДЛЯ ОБЛАКА) ---
+# model_path = r"D:\Jarvis_Release\models\models--Systran--faster-whisper-small\snapshots"
+# snapshot_dir = glob.glob(os.path.join(model_path, "*"))[0]
+# model = WhisperModel(snapshot_dir, device="cpu", compute_type="int8")
+# print("Модель загружена.")
 
 def create_file(filename, content):
     # Универсальный путь (работает и на Windows, и на Linux)
@@ -34,7 +34,7 @@ def create_file(filename, content):
 
 def ask_deepseek(prompt, system_prompt=None, model_name="anthropic/claude-haiku-5.5"):
     # ВСТАВЬ СЮДА СВОЙ КЛЮЧ ОТ OFOXAI
-    api_key = "sk-of-pLBCAoBdLpyKAQgIelMiHZJxLsQwyryjvIIMQkWIzwsQOdCaFsrCHEcSSewKaRQP" 
+    api_key = "sk-of-CetcdLRVvTnJxNxHvF1ITmrYZbQLEMMBJzJtmtXoTjCzzsJUCbXwmPUTJNkjA1BFY" 
     
     url = "https://api.ofox.ai/anthropic/v1/messages"
     
@@ -46,9 +46,9 @@ def ask_deepseek(prompt, system_prompt=None, model_name="anthropic/claude-haiku-
     
     data = {
         "model": model_name,
-        "max_tokens": 8192,  # Увеличиваем лимит, чтобы точно хватило
+        "max_tokens": 8192,
         "messages": [{"role": "user", "content": prompt}],
-        "thinking": {"type": "disabled"}  # <--- ОТКЛЮЧАЕМ МЫШЛЕНИЕ
+        "thinking": {"type": "disabled"}
     }
     
     if system_prompt:
@@ -61,7 +61,6 @@ def ask_deepseek(prompt, system_prompt=None, model_name="anthropic/claude-haiku-
         r.raise_for_status()
         response_data = r.json()
         
-        # Безопасно достаем текст, пропуская блоки размышлений (если они вдруг останутся)
         content_blocks = response_data.get("content", [])
         for block in content_blocks:
             if block.get("type") == "text":
@@ -188,7 +187,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"🤖 Жорик: {ask_deepseek(text)}")
 
 def main():
-    TOKEN = "9076176766:AAEH5PCduOn--wsaEM--_JdQNCQHOD_yz5Q"
+    TOKEN = "9173136903:AA... (вставь сюда токен от Jarik_Cloud_bot)"
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
