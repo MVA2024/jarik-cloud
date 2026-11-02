@@ -187,7 +187,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"🤖 Жорик: {ask_deepseek(text)}")
 
 def main():
-     TOKEN = os.getenv("BOT_TOKEN")
+    TOKEN = os.getenv("BOT_TOKEN")
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
