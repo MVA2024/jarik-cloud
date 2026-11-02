@@ -1,0 +1,6 @@
+python-telegram-bot
+requests
+faster-whisper
+beautifulsoup4
+openpyxl
+edge-tts
